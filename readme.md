@@ -15,5 +15,5 @@ create main.py
                 return {"message": "Hello World"}
 
 uvicorn main:app --reload
-
+uvicorn main:app --port 8000 
 pip freeze > requirements.txt

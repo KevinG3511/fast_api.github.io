@@ -47,14 +47,19 @@ class RickAndMorty:
         try:
             if self.namep == "" or URLR == "":
                 raise BadContent()
-            datap = self.__getdata__(URLR)
-            pers = []
-            for name in datap["results"]:
-                if name["name"] == self.namep:
-                    pers.append(name)
-            if len(pers) < 1:
-                raise FindException()
-            print("EXIST =>", pers[0]["name"])
+            datap=''
+            try:
+                datap = self.__getdata__(URLR)
+            except Exception as exc:
+                raise FindException() from exc
+            else:
+                pers = []
+                for name in datap["results"]:
+                    if name["name"] == self.namep:
+                        pers.append(name)
+                if len(pers) < 1:
+                    raise FindException()
+                print("EXIST =>", pers[0]["name"])
             # return {"Nombre":pers[0]['name'],
             # "Status":pers[0]['status'],"Species":pers[0]['species']}
         except ValueError as exc:

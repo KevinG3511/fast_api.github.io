@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from schemas.modelos import Ricks,Poke
 from .rick_and_morty import RickAndMorty,BadContent,FindException
-from .pokemon import Pokemon,BadContent,FindException
-import urllib3
+from .pokemon import Pokemon
+
 
 
 service1 = APIRouter()
@@ -11,9 +11,10 @@ service1 = APIRouter()
 async def root1(name:Ricks = Depends()):
     """ ruta para rick and morty """
     try:
+        print(name.nombres)
         newrick = RickAndMorty(name.nombres)
         results = {
-            "name": name,
+            "name": name.nombres,
             "origin": newrick.get_origin(),
             "gender": newrick.get_gender(),
             "status": newrick.get_status(),
