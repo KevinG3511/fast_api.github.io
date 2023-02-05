@@ -11,7 +11,7 @@ URL = "https://pokeapi.co/api/v2/pokemon/"
 # URLU = os.getenv("URLU")
 
 
-class FindException(Exception):
+class FindExceptions(Exception):
     """Exception"""
 
     def __init__(self, code=500, msg="error"):
@@ -19,7 +19,7 @@ class FindException(Exception):
         self.msg = msg
 
 
-class BadContent(Exception):
+class BadContents(Exception):
     """Exception"""
 
     def __init__(self, code=500, msg="error"):
@@ -46,12 +46,12 @@ class Pokemon:
         """Validar si existe"""
         try:
             if self.namep == "" or URL == "":
-                raise BadContent()
+                raise BadContents()
             datav = ""
             try:
                 datav = self.__getdata__(URL)
             except Exception as exc:
-                raise FindException() from exc
+                raise FindExceptions() from exc
             else:
                 valor = ""
                 for item in datav["results"]:
@@ -59,39 +59,39 @@ class Pokemon:
                         valor = self.namep
                 if len(valor) < 1:
                     print(f"DON'T EXIST {self.namep}")
-                    raise FindException()
+                    raise FindExceptions()
                 print(f"EXIST {self.namep}")
         except ValueError as exc:
             raise ValueError() from exc
-        except BadContent as exc:
-            raise BadContent(code=400, msg="Datos incorrectos o incompletos") from exc
-        except FindException as exc:
-            raise FindException(
+        except BadContents as exc:
+            raise BadContents(code=400, msg="Datos incorrectos o incompletos") from exc
+        except FindExceptions as exc:
+            raise FindExceptions(
                 code=404, msg="La operacion solicitada fallo - pokemon"
             ) from exc
         '''
         # try:
         #     if self.nameu == "" or URLU == "":
-        #         raise BadContent()
+        #         raise BadContents()
         #     datav = ""
         #     try:
         #         datav = self.__getdata__(URLU)
         #     except Exception as exc:
-        #         raise FindException() from exc
+        #         raise FindExceptions() from exc
         #     else:
         #         username = []
         #         for names in datav:
         #             if names["name"] == self.nameu:
         #                 username.append(names["name"])
         #         if len(username) < 1:
-        #             raise FindException()
+        #             raise FindExceptions()
         #         print("USER EXIST =>", username[0])
         # except ValueError as exc:
         #     raise ValueError() from exc
-        # except BadContent as exc:
-        #     raise BadContent(code=400, msg="Datos incorrectos o incompletos") from exc
-        # except FindException as exc:
-        #     raise FindException(
+        # except BadContents as exc:
+        #     raise BadContents(code=400, msg="Datos incorrectos o incompletos") from exc
+        # except FindExceptions as exc:
+        #     raise FindExceptions(
         #         code=404, msg="La operacion solicitada fallo - user"
         #     ) from exc
         '''
@@ -101,12 +101,12 @@ class Pokemon:
         print("habilidades")
         try:
             if self.namep == "" or URL == "":
-                raise BadContent()
+                raise BadContents()
             datap = ""
             try:
                 datap = self.__getdata__(URL, self.namep)
             except Exception as exc:
-                raise FindException() from exc
+                raise FindExceptions() from exc
             else:
                 dic = {}
                 for ability in datap["abilities"]:
@@ -122,10 +122,10 @@ class Pokemon:
                 return dic
         except ValueError as exc:
             raise ValueError() from exc
-        except BadContent as exc:
-            raise BadContent(code=400, msg="Datos incorrectos o incompletos") from exc
-        except FindException as exc:
-            raise FindException(
+        except BadContents as exc:
+            raise BadContents(code=400, msg="Datos incorrectos o incompletos") from exc
+        except FindExceptions as exc:
+            raise FindExceptions(
                 code=404, msg="La operacion solicitada fallo - ability"
             ) from exc
 
@@ -134,22 +134,22 @@ class Pokemon:
         print("sdfghjkl")
         try:
             if self.namep == "" or urlp == "" or searchs == "":
-                raise BadContent()
+                raise BadContents()
             datap = ""
             try:
                 datap = self.__getdata__(urlp, self.namep)
             except Exception as exc:
-                raise FindException() from exc
+                raise FindExceptions() from exc
             else:
                 if datap[searchs] == "" or datap[searchs] == "undefined":
-                    raise FindException()
+                    raise FindExceptions()
                 return datap[searchs]
         except ValueError as exc:
             raise ValueError() from exc
-        except BadContent as exc:
-            raise BadContent(code=400, msg="Datos incorrectos o incompletos") from exc
-        except FindException as exc:
-            raise FindException(code=404, msg="La operacion solicitada fallo") from exc
+        except BadContents as exc:
+            raise BadContents(code=400, msg="Datos incorrectos o incompletos") from exc
+        except FindExceptions as exc:
+            raise FindExceptions(code=404, msg="La operacion solicitada fallo") from exc
 
     def get_weight(self):
         """Obtener peso"""

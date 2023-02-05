@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from schemas.modelos import Ricks,Poke
 from .rick_and_morty import RickAndMorty,BadContent,FindException
-from .pokemon import Pokemon
+from .pokemon import Pokemon,BadContents,FindExceptions
 
 
 
@@ -46,9 +46,9 @@ async def root2(name:Poke = Depends()):
         return obj
     except ValueError:
         return {"status": 400, "results":{} ,"msg": "Formato incorrecto"}
-    except BadContent as exc:
+    except BadContents as exc:
         return {"status": exc.code, "results":{} ,"msg": exc.msg}
-    except FindException as exc:
+    except FindExceptions as exc:
         return {"status": exc.code, "results":{} ,"msg": exc.msg}
     
     
